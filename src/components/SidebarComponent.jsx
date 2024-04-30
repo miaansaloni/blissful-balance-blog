@@ -6,10 +6,7 @@ const SidebarComponent = () => {
       </div>
       <ul className="sidebar-menu">
         <li>
-          <a href="/">Home</a>
-        </li>
-        <li>
-          <a href="/about">About</a>
+          <a href="/newpost">Write a new article</a>
         </li>
         <li>
           <a href="/services">Services</a>

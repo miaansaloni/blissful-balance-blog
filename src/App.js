@@ -12,6 +12,7 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import ProfileComponent from "./components/ProfileComponent";
+import NewPost from "./components/NewPost";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/profile" element={<ProfileComponent />} />
+              <Route path="/newpost" element={<NewPost />} />
             </Routes>
           </Col>
           <Col md={3}>
