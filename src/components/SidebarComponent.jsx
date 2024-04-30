@@ -38,7 +38,9 @@ const SidebarComponent = () => {
       <ul className="sidebar-menu">
         {categories.map((category) => (
           <li key={category.id}>
-            <Link to={`/categories/${category.id}`}>{category.name}</Link>
+            <Link className="text-capitalize" to={`/categories/${category.id}`}>
+              {category.name}
+            </Link>
           </li>
         ))}
       </ul>

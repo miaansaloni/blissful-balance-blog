@@ -51,7 +51,7 @@ function Categories() {
         &#8701; back to all posts
       </Link>
 
-      <h2>{categoryName}</h2>
+      <h2 className="text-capitalize">{categoryName}</h2>
 
       {categoryPosts.length > 0 ? (
         <div>
@@ -66,7 +66,7 @@ function Categories() {
                   {new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
                 </span>
               </h5>
-              <p className="fw-lighter" dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
+              <p className="fw-lighter fst-italic" dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
               <Link className="text-decoration-underline" to={`/posts/${post.id}`}>
                 Read more
               </Link>

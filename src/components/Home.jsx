@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { apiUrl } from "../constants.js";
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -10,6 +10,8 @@ const Home = () => {
   const [lastPage, setLastPage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [postToDelete, setPostToDelete] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -44,8 +46,9 @@ const Home = () => {
     return pagination;
   }
 
-  const deletePost = async (id) => {
+  const deletePost = async () => {
     try {
+      const id = postToDelete;
       setDeletingPostId(id);
 
       const username = "mia";
@@ -69,11 +72,24 @@ const Home = () => {
       console.error("Error fetching posts:", error);
     } finally {
       setDeletingPostId(null);
+      setPostToDelete(null);
+      setShowConfirmationModal(false);
     }
+  };
+
+  const handleShowConfirmationModal = (postId) => {
+    setShowConfirmationModal(true);
+    setPostToDelete(postId);
+  };
+
+  const handleCloseConfirmationModal = () => {
+    setShowConfirmationModal(false);
+    setPostToDelete(null);
   };
 
   return (
     <>
+      <div id="header">Blog Title</div>
       {loading && <div>Loading...</div>}
       <div>
         {posts.map((post) => (
@@ -95,13 +111,13 @@ const Home = () => {
                     })}
                   </span>
                 </h5>
-                <p className="fw-lighter" dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
+                <p className="fw-lighter fst-italic" dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
                 <div className="text-capitalize d-flex align-items-center justify-content-between">
                   <Link className="text-decoration-underline" to={`/posts/${post.id}`}>
                     Read more
                   </Link>
                   <div>
-                    <Button className="btn btn-danger" onClick={() => deletePost(post.id)}>
+                    <Button className="btn btn-danger" onClick={() => handleShowConfirmationModal(post.id)}>
                       Delete
                     </Button>
                     <Button variant="primary" className="ml-2" as={Link} to={`/editpost/${post.id}`}>
@@ -114,6 +130,23 @@ const Home = () => {
           </div>
         ))}
       </div>
+
+      {/* MODALE DI CONFERMA PER L'ELIMINAZIONE */}
+      <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this post?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseConfirmationModal}>
+            Cancel
+          </Button>
+          <Button variant="outline-danger" onClick={deletePost}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       {/* PAGINATION */}
       <nav>
         <ul className="pagination justify-content-center">

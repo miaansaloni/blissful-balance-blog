@@ -1,3 +1,7 @@
+import { Facebook } from "react-bootstrap-icons";
+import { TwitterX } from "react-bootstrap-icons";
+import { Instagram } from "react-bootstrap-icons";
+
 const FooterComponent = () => {
   return (
     <footer className="footer">
@@ -28,17 +32,18 @@ const FooterComponent = () => {
           </div>
           <div className="col-md-3">
             <h4>Follow Us</h4>
-            <ul>
-              <li>
-                <a href="https://www.facebook.com/example">Facebook</a>
-              </li>
-              <li>
-                <a href="https://twitter.com/example">Twitter</a>
-              </li>
-              <li>
-                <a href="https://www.instagram.com/example">Instagram</a>
-              </li>
-            </ul>
+
+            <a href="https://www.facebook.com/example">
+              <Facebook />
+            </a>
+
+            <a href="https://twitter.com/example">
+              <TwitterX />
+            </a>
+
+            <a href="https://www.instagram.com/example">
+              <Instagram />
+            </a>
           </div>
         </div>
         <hr />

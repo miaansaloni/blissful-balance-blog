@@ -7,7 +7,9 @@ function NavbarComponent() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary mb-4">
       <Container>
-        <Navbar.Brand href="/">Blissful Balance Blog</Navbar.Brand>
+        <Navbar.Brand href="/" id="blog-title">
+          Blog Name
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
