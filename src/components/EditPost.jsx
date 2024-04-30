@@ -9,6 +9,8 @@ const EditPost = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [categories, setCategories] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -23,6 +25,7 @@ const EditPost = () => {
         setPost(data);
         setTitle(data.title.rendered);
         setContent(data.content.rendered);
+        setCategoryId(data.categories);
       } catch (error) {
         console.error("Error fetching post:", error);
       } finally {
@@ -30,7 +33,21 @@ const EditPost = () => {
       }
     };
 
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/categories`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch categories");
+        }
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
     fetchPost();
+    fetchCategories();
   }, [id]);
 
   const handleSubmit = async (e) => {
@@ -52,6 +69,7 @@ const EditPost = () => {
         body: JSON.stringify({
           title: title,
           content: content,
+          categories: [parseInt(categoryId)], // Assuming we send an array of category IDs
         }),
       });
 
@@ -96,6 +114,16 @@ const EditPost = () => {
             required
           />
         </Form.Group>
+        <Form.Group controlId="category">
+          <Form.Label>Category</Form.Label>
+          <Form.Control as="select" value={categoryId} onChange={(e) => setCategoryId(e.target.value)} required>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
 
         <Button variant="primary" type="submit" disabled={isLoading}>
           {isLoading ? "Loading..." : "Update"}
@@ -103,7 +131,7 @@ const EditPost = () => {
       </Form>
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Post successfully edited</Modal.Title>
         </Modal.Header>
         <Modal.Body>Your post has been edited successfully.</Modal.Body>

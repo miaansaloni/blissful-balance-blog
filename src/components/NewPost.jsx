@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Form, Button, Modal, FormCheck } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { apiUrl } from "../constants.js";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
@@ -72,9 +73,9 @@ const NewPost = () => {
     }
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
+  // const handleCloseModal = () => {
+  //   setShowModal(false);
+  // };
 
   const handleCategoryChange = (e) => {
     const { value } = e.target;
@@ -95,7 +96,7 @@ const NewPost = () => {
                   placeholder="Enter title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  required
+                  required // Required field
                 />
               </Form.Group>
               <Form.Group controlId="content">
@@ -106,7 +107,7 @@ const NewPost = () => {
                   placeholder="Enter content"
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  required
+                  required // Required field
                 />
               </Form.Group>
             </Col>
@@ -134,15 +135,15 @@ const NewPost = () => {
         </Form>
       </Container>
 
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Post created successfully</Modal.Title>
         </Modal.Header>
         <Modal.Body>Your post has been created successfully.</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
+          <Link to="/" className="btn btn-secondary">
             Close
-          </Button>
+          </Link>
         </Modal.Footer>
       </Modal>
     </div>

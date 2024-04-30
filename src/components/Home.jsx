@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { apiUrl } from "../constants.js";
+import { Button } from "react-bootstrap";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -8,8 +9,11 @@ const Home = () => {
   const [deletingPostId, setDeletingPostId] = useState(null);
   const [lastPage, setLastPage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
+
     fetch(`${apiUrl}/posts?page=${currentPage}`)
       .then((response) => {
         setLastPage(parseInt(response.headers.get("X-WP-TotalPages")));
@@ -17,6 +21,11 @@ const Home = () => {
       })
       .then((data) => {
         setPosts(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error);
+        setLoading(false);
       });
   }, [currentPage, deletes]);
 
@@ -65,26 +74,47 @@ const Home = () => {
 
   return (
     <>
+      {loading && <div>Loading...</div>}
       <div>
         {posts.map((post) => (
-          <div key={post.id}>
+          <div className="mb-3 article" key={post.id}>
             {deletingPostId === post.id ? (
               <div className="spinner-border" role="status"></div>
             ) : (
               <>
-                <Link to={`/posts/${post.id}`}>{post.title.rendered}</Link>
-                <button className="btn btn-danger" onClick={() => deletePost(post.id)}>
-                  Delete
-                </button>
-                <Link to={`/editpost/${post.id}`} className="btn btn-primary ml-2">
-                  Edit
-                </Link>
+                <h5
+                  className="text-capitalize d-flex align-items-center justify-content-between"
+                  to={`/posts/${post.id}`}
+                >
+                  {post.title.rendered}{" "}
+                  <span className="fs-6 fw-lighter">
+                    {new Date(post.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
+                </h5>
+                <p className="fw-lighter" dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
+                <div className="text-capitalize d-flex align-items-center justify-content-between">
+                  <Link className="text-decoration-underline" to={`/posts/${post.id}`}>
+                    Read more
+                  </Link>
+                  <div>
+                    <Button className="btn btn-danger" onClick={() => deletePost(post.id)}>
+                      Delete
+                    </Button>
+                    <Button variant="primary" className="ml-2" as={Link} to={`/editpost/${post.id}`}>
+                      Edit
+                    </Button>
+                  </div>
+                </div>
               </>
             )}
           </div>
         ))}
       </div>
-
+      {/* PAGINATION */}
       <nav>
         <ul className="pagination justify-content-center">
           <li className={`page-item ${currentPage === 1 && "disabled"}`}>

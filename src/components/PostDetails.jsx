@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom/dist";
 import { apiUrl } from "../constants";
+import { Link } from "react-router-dom";
 
 const PostDetails = () => {
   const [post, setPost] = useState(null);
@@ -19,6 +20,9 @@ const PostDetails = () => {
   return (
     post && (
       <>
+        <Link to="/" className="text-decoration-underline">
+          &#8701; back to all posts
+        </Link>
         <h1>{post.title.rendered}</h1>
         {post._embedded["wp:term"] && (
           <div>
