@@ -6,17 +6,34 @@ import NavbarComponent from "./components/NavbarComponent";
 import PostDetails from "./components/PostDetails";
 import Contact from "./components/Contact";
 import AboutPage from "./components/AboutPage";
+import FooterComponent from "./components/FooterComponent";
+import SidebarComponent from "./components/SidebarComponent";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
+import ProfileComponent from "./components/ProfileComponent";
 
 function App() {
   return (
     <BrowserRouter>
       <NavbarComponent />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/posts/:id" element={<PostDetails />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/about" element={<AboutPage />} />
-      </Routes>
+      <Container>
+        <Row>
+          <Col md={9}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/posts/:id" element={<PostDetails />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/profile" element={<ProfileComponent />} />
+            </Routes>
+          </Col>
+          <Col md={3}>
+            <SidebarComponent />
+          </Col>
+        </Row>
+      </Container>
+      <FooterComponent />
     </BrowserRouter>
   );
 }

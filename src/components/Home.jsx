@@ -65,7 +65,7 @@ const Home = () => {
 
   return (
     <>
-      <>
+      <div>
         {posts.map((post) => (
           <div key={post.id}>
             {deletingPostId === post.id ? (
@@ -80,10 +80,10 @@ const Home = () => {
             )}
           </div>
         ))}
-      </>
+      </div>
 
       <nav>
-        <ul className="pagination">
+        <ul className="pagination justify-content-center">
           <li className={`page-item ${currentPage === 1 && "disabled"}`}>
             <span className="page-link" onClick={() => currentPage !== 1 && changePage(currentPage - 1)}>
               &#8701;
