@@ -1,4 +1,27 @@
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { apiUrl } from "../constants.js";
+
 const SidebarComponent = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/categories`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch categories");
+        }
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
@@ -6,14 +29,18 @@ const SidebarComponent = () => {
       </div>
       <ul className="sidebar-menu">
         <li>
-          <a href="/newpost">Write a new article</a>
+          <Link to="/newpost">Write a new article</Link>
         </li>
-        <li>
-          <a href="/services">Services</a>
-        </li>
-        <li>
-          <a href="/contact">Contact</a>
-        </li>
+      </ul>
+      <div className="sidebar-header">
+        <h3>Browse Categories</h3>
+      </div>
+      <ul className="sidebar-menu">
+        {categories.map((category) => (
+          <li key={category.id}>
+            <Link to={`/categories/${category.id}`}>{category.name}</Link>
+          </li>
+        ))}
       </ul>
     </aside>
   );

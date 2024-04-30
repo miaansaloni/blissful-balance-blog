@@ -13,6 +13,8 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import ProfileComponent from "./components/ProfileComponent";
 import NewPost from "./components/NewPost";
+import EditPost from "./components/EditPost";
+import Categories from "./components/Categories";
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/profile" element={<ProfileComponent />} />
               <Route path="/newpost" element={<NewPost />} />
+              <Route path="/editpost/:id" element={<EditPost />} />
+              <Route path="/categories/:id" element={<Categories />} />
             </Routes>
           </Col>
           <Col md={3}>

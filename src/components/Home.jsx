@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { apiUrl } from "../constants.js";
-import { Link } from "react-router-dom/dist";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -76,6 +76,9 @@ const Home = () => {
                 <button className="btn btn-danger" onClick={() => deletePost(post.id)}>
                   Delete
                 </button>
+                <Link to={`/editpost/${post.id}`} className="btn btn-primary ml-2">
+                  Edit
+                </Link>
               </>
             )}
           </div>
