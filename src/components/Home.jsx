@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { apiUrl } from "../constants.js";
 import { Button, Modal } from "react-bootstrap";
+import { Trash3 } from "react-bootstrap-icons";
+import { PenFill } from "react-bootstrap-icons";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -89,9 +91,8 @@ const Home = () => {
 
   return (
     <>
-      <div id="header">Blog Title</div>
       {loading && <div>Loading...</div>}
-      <div>
+      <div id="article-container">
         {posts.map((post) => (
           <div className="mb-3 article" key={post.id}>
             {deletingPostId === post.id ? (
@@ -103,7 +104,7 @@ const Home = () => {
                   to={`/posts/${post.id}`}
                 >
                   {post.title.rendered}{" "}
-                  <span className="fs-6 fw-lighter">
+                  <span className="fs-6">
                     {new Date(post.date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
@@ -113,15 +114,15 @@ const Home = () => {
                 </h5>
                 <p className="fw-lighter fst-italic" dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
                 <div className="text-capitalize d-flex align-items-center justify-content-between">
-                  <Link className="text-decoration-underline" to={`/posts/${post.id}`}>
+                  <Link className="text-decoration-underline fw-bold read-more" to={`/posts/${post.id}`}>
                     Read more
                   </Link>
                   <div>
-                    <Button className="btn btn-danger" onClick={() => handleShowConfirmationModal(post.id)}>
-                      Delete
+                    <Button id="editPostBTN" as={Link} to={`/editpost/${post.id}`}>
+                      <PenFill className="mb-1" /> Edit
                     </Button>
-                    <Button variant="primary" className="ml-2" as={Link} to={`/editpost/${post.id}`}>
-                      Edit
+                    <Button id="deletePostBTN" onClick={() => handleShowConfirmationModal(post.id)}>
+                      <Trash3 className="mb-1" /> Delete
                     </Button>
                   </div>
                 </div>

@@ -15,6 +15,7 @@ import ProfileComponent from "./components/ProfileComponent";
 import NewPost from "./components/NewPost";
 import EditPost from "./components/EditPost";
 import Categories from "./components/Categories";
+import Header from "./components/Header";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <NavbarComponent />
       <Container>
         <Row>
+          <Header />
           <Col md={9}>
             <Routes>
               <Route path="/" element={<Home />} />
