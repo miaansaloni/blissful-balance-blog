@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { apiUrl } from "../constants.js";
+import { Plus } from "react-bootstrap-icons";
 
 const SidebarComponent = () => {
   const [categories, setCategories] = useState([]);
@@ -29,21 +30,22 @@ const SidebarComponent = () => {
       </div>
       <ul className="sidebar-menu">
         <li>
-          <Link to="/newpost">Write a new article</Link>
+          <Link to="/newpost">
+            {" "}
+            <Plus className="mb-1 icon-border" size={"23px"} /> Write a new article
+          </Link>
         </li>
       </ul>
       <div className="sidebar-header">
         <h3>Browse Categories</h3>
       </div>
-      <ul className="sidebar-menu">
+      <div className="sidebar-menu d-flex flex-wrap">
         {categories.map((category) => (
-          <li key={category.id}>
-            <Link className="text-capitalize" to={`/categories/${category.id}`}>
-              {category.name}
-            </Link>
-          </li>
+          <Link key={category.id} className="text-capitalize category" to={`/categories/${category.id}`}>
+            {category.name}
+          </Link>
         ))}
-      </ul>
+      </div>
     </aside>
   );
 };

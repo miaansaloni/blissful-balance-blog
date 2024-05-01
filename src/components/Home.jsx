@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { apiUrl } from "../constants.js";
 import { Button, Modal } from "react-bootstrap";
@@ -89,10 +89,15 @@ const Home = () => {
     setPostToDelete(null);
   };
 
+  const renderExcerpt = (excerpt) => {
+    const maxLength = 150;
+    return excerpt.length > maxLength ? `${excerpt.substring(0, maxLength)}...` : excerpt;
+  };
+
   return (
     <>
       {loading && <div>Loading...</div>}
-      <div id="article-container">
+      <div className="article-container">
         {posts.map((post) => (
           <div className="mb-3 article" key={post.id}>
             {deletingPostId === post.id ? (
@@ -100,7 +105,7 @@ const Home = () => {
             ) : (
               <>
                 <h5
-                  className="text-capitalize d-flex align-items-center justify-content-between"
+                  className="text-capitalize d-flex align-items-center justify-content-between post-title"
                   to={`/posts/${post.id}`}
                 >
                   {post.title.rendered}{" "}
@@ -112,11 +117,12 @@ const Home = () => {
                     })}
                   </span>
                 </h5>
-                <p className="fw-lighter fst-italic" dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
+
+                <p
+                  className="fw-lighter fst-italic excerpt"
+                  dangerouslySetInnerHTML={{ __html: renderExcerpt(post.excerpt.rendered) }}
+                />
                 <div className="text-capitalize d-flex align-items-center justify-content-between">
-                  <Link className="text-decoration-underline fw-bold read-more" to={`/posts/${post.id}`}>
-                    Read more
-                  </Link>
                   <div>
                     <Button id="editPostBTN" as={Link} to={`/editpost/${post.id}`}>
                       <PenFill className="mb-1" /> Edit
@@ -125,6 +131,9 @@ const Home = () => {
                       <Trash3 className="mb-1" /> Delete
                     </Button>
                   </div>
+                  <Link className="read-more" to={`/posts/${post.id}`}>
+                    Read more
+                  </Link>
                 </div>
               </>
             )}
@@ -152,21 +161,24 @@ const Home = () => {
       <nav>
         <ul className="pagination justify-content-center">
           <li className={`page-item ${currentPage === 1 && "disabled"}`}>
-            <span className="page-link" onClick={() => currentPage !== 1 && changePage(currentPage - 1)}>
+            <span className="page-link bg-transparent" onClick={() => currentPage !== 1 && changePage(currentPage - 1)}>
               &#8701;
             </span>
           </li>
 
           {generatePagination().map((page) => (
             <li key={page.n} className={`page-item ${page.active && "active"}`}>
-              <span className="page-link" onClick={() => changePage(page.n)}>
+              <span id="pag-num" className="page-link text-black" onClick={() => changePage(page.n)}>
                 {page.n}
               </span>
             </li>
           ))}
 
           <li className={`page-item ${currentPage === "lastPage" && "disabled"}`}>
-            <span className="page-link" onClick={() => currentPage !== lastPage && changePage(currentPage + 1)}>
+            <span
+              className="page-link text-black"
+              onClick={() => currentPage !== lastPage && changePage(currentPage + 1)}
+            >
               &#8702;
             </span>
           </li>

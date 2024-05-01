@@ -24,7 +24,7 @@ function App() {
       <Container>
         <Row>
           <Header />
-          <Col md={9}>
+          <Col md={9} className="ps-0">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/posts/:id" element={<PostDetails />} />
@@ -36,7 +36,7 @@ function App() {
               <Route path="/categories/:id" element={<Categories />} />
             </Routes>
           </Col>
-          <Col md={3}>
+          <Col md={3} className="pe-0">
             <SidebarComponent />
           </Col>
         </Row>

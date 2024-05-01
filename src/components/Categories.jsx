@@ -46,7 +46,7 @@ function Categories() {
   }
 
   return (
-    <div>
+    <div className="article-container mb-3">
       <Link to="/" className="text-decoration-underline">
         &#8701; back to all posts
       </Link>
@@ -67,7 +67,7 @@ function Categories() {
                 </span>
               </h5>
               <p className="fw-lighter fst-italic" dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
-              <Link className="text-decoration-underline" to={`/posts/${post.id}`}>
+              <Link className="read-more" to={`/posts/${post.id}`}>
                 Read more
               </Link>
             </div>

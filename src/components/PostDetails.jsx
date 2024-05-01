@@ -34,9 +34,9 @@ const PostDetails = () => {
           </div>
         )}
 
-        <h2>Author: {post._embedded["author"][0].name}</h2>
+        <p id="author">Author: {post._embedded["author"][0].name}</p>
 
-        <div dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
+        <div className=" excerpt" dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
       </>
     )
   );
