@@ -84,13 +84,13 @@ const NewPost = () => {
 
   return (
     <div>
-      <Container>
+      <Container id="newpost" className="p-3">
         <h2>Create New Post</h2>
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col>
               <Form.Group controlId="title">
-                <Form.Label>Title</Form.Label>
+                <Form.Label className="fw-bold">Title</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter title"
@@ -100,7 +100,7 @@ const NewPost = () => {
                 />
               </Form.Group>
               <Form.Group controlId="content">
-                <Form.Label>Content</Form.Label>
+                <Form.Label className="fw-bold mt-4">Content</Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={4}
@@ -113,7 +113,7 @@ const NewPost = () => {
             </Col>
             <Col>
               <Form.Group controlId="categories">
-                <Form.Label>Categories</Form.Label>
+                <Form.Label className="fw-bold">Categories</Form.Label>
                 {categories.map((category) => (
                   <FormCheck
                     key={category.id}
@@ -127,7 +127,7 @@ const NewPost = () => {
                 ))}
               </Form.Group>
 
-              <Button variant="primary" type="submit" disabled={isLoading}>
+              <Button type="submit" className="customBTNs" disabled={isLoading}>
                 {isLoading ? "Loading..." : "Submit"}
               </Button>
             </Col>
@@ -136,12 +136,12 @@ const NewPost = () => {
       </Container>
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Post created successfully</Modal.Title>
+        <Modal.Header className="justify-content-center">
+          <Modal.Title>Post created successfully!</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Your post has been created successfully.</Modal.Body>
-        <Modal.Footer>
-          <Link to="/" className="btn btn-secondary">
+        <Modal.Body className="text-center">Your post has been created successfully :)</Modal.Body>
+        <Modal.Footer className="justify-content-center">
+          <Link to="/" className="btn customBTNs m-2">
             Close
           </Link>
         </Modal.Footer>

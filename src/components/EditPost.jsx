@@ -90,11 +90,11 @@ const EditPost = () => {
   }
 
   return (
-    <div>
-      <h2>Edit Post</h2>
+    <div id="editpost" className="p-3">
+      <h2 className="text-center">Edit Post:</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="title">
-          <Form.Label>Title</Form.Label>
+          <Form.Label>Title:</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter title"
@@ -103,8 +103,8 @@ const EditPost = () => {
             required
           />
         </Form.Group>
-        <Form.Group controlId="content">
-          <Form.Label>Content</Form.Label>
+        <Form.Group controlId="content" className="mt-3">
+          <Form.Label>Content:</Form.Label>
           <Form.Control
             as="textarea"
             rows={4}
@@ -114,8 +114,8 @@ const EditPost = () => {
             required
           />
         </Form.Group>
-        <Form.Group controlId="category">
-          <Form.Label>Category</Form.Label>
+        <Form.Group controlId="category" className="mt-3">
+          <Form.Label>Category:</Form.Label>
           <Form.Control as="select" value={categoryId} onChange={(e) => setCategoryId(e.target.value)} required>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
@@ -124,10 +124,11 @@ const EditPost = () => {
             ))}
           </Form.Control>
         </Form.Group>
-
-        <Button variant="primary" type="submit" disabled={isLoading}>
-          {isLoading ? "Loading..." : "Update"}
-        </Button>
+        <div className="d-flex justify-content-center">
+          <Button className="customBTNs" type="submit" disabled={isLoading}>
+            {isLoading ? "Loading..." : "Update"}
+          </Button>
+        </div>
       </Form>
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>

@@ -56,7 +56,7 @@ function Categories() {
       {categoryPosts.length > 0 ? (
         <div>
           {categoryPosts.map((post) => (
-            <div className="mb-3 article" key={post.id}>
+            <div className="mb-3 article pb-4" key={post.id}>
               <h5
                 className="text-capitalize d-flex align-items-center justify-content-between"
                 href={`/posts/${post.id}`}
@@ -66,10 +66,15 @@ function Categories() {
                   {new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
                 </span>
               </h5>
-              <p className="fw-lighter fst-italic" dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
-              <Link className="read-more" to={`/posts/${post.id}`}>
-                Read more
-              </Link>
+              <p
+                className="fw-lighter fst-italic excerpt"
+                dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
+              />
+              <div className="text-end">
+                <Link className="read-more" to={`/posts/${post.id}`}>
+                  Read more
+                </Link>
+              </div>
             </div>
           ))}
         </div>

@@ -19,7 +19,7 @@ const PostDetails = () => {
 
   return (
     post && (
-      <>
+      <div id="postdetails" className="p-3">
         <Link to="/" className="text-decoration-underline">
           &#8701; back to all posts
         </Link>
@@ -27,7 +27,7 @@ const PostDetails = () => {
         {post._embedded["wp:term"] && (
           <div>
             {post._embedded["wp:term"][0].map((category) => (
-              <span key={category.id} className="badge rounded-pill text-bg-primary">
+              <span key={category.id} className="badge">
                 {category.name}
               </span>
             ))}
@@ -36,8 +36,8 @@ const PostDetails = () => {
 
         <p id="author">Author: {post._embedded["author"][0].name}</p>
 
-        <div className=" excerpt" dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
-      </>
+        <div className="excerpt text-white fw-bold" dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
+      </div>
     )
   );
 };
